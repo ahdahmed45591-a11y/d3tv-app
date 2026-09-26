@@ -30,8 +30,10 @@
     overflow:hidden;position:relative;
     display:flex;flex-direction:column;
   }
-  .statusbar{display:flex;justify-content:space-between;padding:10px 22px 2px;font-size:12px;font-weight:600;}
-  .topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 14px;}
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:calc(env(safe-area-inset-top, 0px) + 12px) 16px 8px;
+  }
   .iconbtn{background:none;border:none;color:var(--text);cursor:pointer;position:relative;
     width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;
     flex-shrink:0;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;}
@@ -46,7 +48,7 @@
   .screen{display:none;padding-bottom:16px;}
   .screen.active{display:block;}
 
-  .hero{margin:0 18px 22px;border-radius:20px;height:240px;position:relative;overflow:hidden;background-size:cover;background-position:center;}
+  .hero{margin:0 12px 18px;border-radius:16px;aspect-ratio:16/9;height:auto;position:relative;overflow:hidden;background-size:cover;background-position:center;}
   .hero-overlay{position:absolute;left:0;right:0;bottom:0;padding:16px 18px 14px;
     background:linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,0) 78%);}
   .hero-overlay p{font-size:12px;color:#e8e6e0;margin-bottom:10px;font-weight:600;}
@@ -61,21 +63,21 @@
   .section-head h3{font-size:16px;font-weight:700;}
   .section-head .chevron{color:var(--text-dim);font-size:18px;}
 
-  .hscroll{display:flex;gap:12px;overflow-x:auto;padding:0 18px 4px;}
+  .hscroll{display:flex;gap:12px;overflow-x:auto;padding:0 18px 4px;align-items:flex-start;}
   .hscroll::-webkit-scrollbar{display:none;}
   .card{flex:0 0 190px;}
+  .card.card-square{flex:0 0 135px;}
+  .card.card-square .thumb{height:135px;}
   .thumb{position:relative;height:106px;border-radius:12px;margin-bottom:8px;overflow:hidden;
     background-size:cover;background-position:center;background-repeat:no-repeat;
-    background:linear-gradient(135deg,#232323,#141414);display:flex;align-items:center;justify-content:center;}
-  .thumb::after{content:"";border-style:solid;border-width:8px 0 8px 13px;
-    border-color:transparent transparent transparent rgba(255,255,255,.55);margin-left:4px;}
-  .thumb.has-video::after{content:none;}
+    background-color:#1c1c1e;display:flex;align-items:center;justify-content:center;}
   .thumb video{width:100%;height:100%;object-fit:cover;display:block;}
   .badge{position:absolute;top:8px;left:8px;font-size:10px;font-weight:700;padding:3px 7px;border-radius:5px;}
   .badge.live{background:var(--live);color:#fff;}
   .badge.new{background:var(--accent);color:var(--accent-ink);}
-  .card h4{font-size:13px;font-weight:600;margin-bottom:3px;line-height:1.3;}
-  .card .meta{font-size:11px;color:var(--text-dim);}
+  .hero-overlay{display:none;}
+  .card h4{display:none;}
+  .card .meta{display:none;}
 
   .live-player{margin:0 18px 20px;}
   .live-thumb video{width:100%;height:100%;object-fit:contain;background:#000;display:block;}
@@ -141,10 +143,10 @@
   .social-row span{width:34px;height:34px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
   .footer-note{font-size:11px;color:#5c5c5a;margin-top:22px;text-align:center;}
 
-  .tabbar{display:flex;border-top:1px solid var(--border);}
-  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:14px 0 18px;background:none;border:none;color:var(--text-dim);font-size:12px;font-weight:600;cursor:pointer;}
+  .tabbar{display:flex;border-top:1px solid var(--border);padding-top:8px;padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 10px);background:#0d0d0d;}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px 2px;background:none;border:none;color:var(--text-dim);font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;}
   .tab.active{color:var(--accent);}
-  .tab svg{width:26px;height:26px;}
+  .tab svg{width:24px;height:24px;}
   .tab.tab-live, .tab.tab-live.active{color:var(--live);}
 
   .overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .2s;z-index:5;}
@@ -160,11 +162,47 @@
   .contact-card .iconbtn{position:absolute;top:10px;right:10px;color:var(--text-dim);}
 
   .drawer{position:absolute;top:0;bottom:0;left:0;width:78%;background:#0d0d0d;
-    transform:translateX(-100%);transition:transform .25s ease;z-index:6;display:flex;flex-direction:column;padding:20px 0;}
+    transform:translateX(-100%);transition:transform .25s ease;z-index:6;display:flex;flex-direction:column;
+    padding:calc(env(safe-area-inset-top, 0px) + 20px) 0 20px;}
   .drawer.open{transform:translateX(0);}
   .drawer-head{display:flex;justify-content:space-between;align-items:center;padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:8px;}
   .drawer-list button{display:block;width:100%;text-align:left;background:none;border:none;color:var(--text);font-size:14px;font-weight:600;padding:14px 20px;cursor:pointer;}
   .drawer-list button:active{background:var(--surface-2);}
+
+  .card-name{font-size:12px;font-weight:700;color:var(--text);margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .play-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);}
+  .play-badge svg{width:32px;height:32px;color:#fff;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));}
+
+  .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,.85);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;}
+  .video-overlay.open{opacity:1;pointer-events:auto;}
+  .video-modal{position:absolute;left:14px;right:14px;top:50%;transform:translateY(-50%) scale(.95);
+    background:#111;border-radius:16px;border:1px solid var(--border);padding:14px;z-index:21;opacity:0;pointer-events:none;
+    transition:opacity .2s,transform .2s;display:flex;flex-direction:column;gap:10px;}
+  .video-modal.open{opacity:1;pointer-events:auto;transform:translateY(-50%) scale(1);}
+  .video-modal-head{display:flex;justify-content:space-between;align-items:center;}
+  .video-modal-head h3{font-size:15px;font-weight:700;color:var(--text);margin:0;}
+  .video-player-box{position:relative;width:100%;padding-top:56.25%;background:#000;border-radius:10px;overflow:hidden;}
+  .video-player-box iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+
+  .news-card{margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s;}
+  .news-card:active{transform:scale(0.98);border-color:var(--accent);}
+  .news-thumb{width:100%;height:140px;background-size:cover;background-position:center;position:relative;}
+  .news-body{padding:12px 14px;}
+  .news-cat{display:inline-block;background:var(--surface-2);color:var(--accent);font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+  .news-title{font-size:14px;font-weight:700;line-height:1.35;margin-bottom:6px;color:var(--text);}
+  .news-excerpt{font-size:12px;color:var(--text-dim);line-height:1.45;margin-bottom:6px;}
+  .news-date{font-size:10px;color:#777;}
+
+  .news-overlay{position:absolute;inset:0;background:rgba(0,0,0,.85);opacity:0;pointer-events:none;transition:opacity .2s;z-index:22;}
+  .news-overlay.open{opacity:1;pointer-events:auto;}
+  .news-modal{position:absolute;left:12px;right:12px;top:40px;bottom:40px;overflow-y:auto;
+    background:#141414;border-radius:16px;border:1px solid var(--border);padding:18px 16px;z-index:23;opacity:0;pointer-events:none;
+    transition:opacity .2s,transform .2s;display:flex;flex-direction:column;}
+  .news-modal.open{opacity:1;pointer-events:auto;}
+  .news-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-shrink:0;}
+  .news-modal-body{overflow-y:auto;flex:1;}
+  .news-modal-body h2{font-size:17px;font-weight:800;line-height:1.35;margin-bottom:8px;}
+  .news-modal-body p{font-size:13px;line-height:1.6;color:#ccc;margin-bottom:12px;}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 </head>
@@ -176,7 +214,7 @@
     <button class="iconbtn" id="menuBtn" aria-label="Menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <img class="logo-img" src="logo.jpg" alt="D3TV">
+    
     <button class="iconbtn" id="bellBtn" aria-label="Notifications">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
       <span class="dot"></span>
@@ -197,85 +235,288 @@
       <div class="section">
         <div class="section-head"><h3>EN EXCLUSIVITE</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb has-video"><span class="badge live">Direct</span><video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" muted loop autoplay playsinline controls></video></div><h4>Journal du soir</h4><div class="meta">12 430 vues • Aujourd'hui</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"><span class="badge new">Nouveau</span></div><h4>D3 Talents — Finale</h4><div class="meta">8 210 vues • Hier</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Magazine Culture</h4><div class="meta">3 054 vues • 10/09</div></div>
+          <div class="card card-square" onclick="openVideo('QCXuonNJdg8', 'AVEC\' ELLES')">
+            <div class="thumb" style="background-image:url('avec_elles.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">AVEC' ELLES</div>
+          </div>
+          <div class="card card-square" onclick="openVideo('9fqaLyyBBLM', 'AN KA MALI')">
+            <div class="thumb" style="background-image:url('an_ka_mali.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">AN KA MALI</div>
+          </div>
+          <div class="card card-square" onclick="openVideo('fj9aSRZ9BS4', 'Bamako News')">
+            <div class="thumb" style="background-image:url('bamako_news.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Bamako News</div>
+          </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-head"><h3>FILMS</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Sport Mali Hebdo</h4><div class="meta">5 622 vues • 08/09</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Débat société</h4><div class="meta">2 987 vues • 06/09</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"><span class="badge new">Nouveau</span></div><h4>Cinéma du dimanche</h4><div class="meta">1 540 vues • 07/09</div></div>
+          <div class="card" onclick="openVideo('7spFoflMeNU', 'Couleurs Mopti')">
+            <div class="thumb" style="background-image:url('couleurs_mopti.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Couleurs Mopti</div>
+          </div>
+          <div class="card" onclick="openVideo('DKiRwBUlySU', 'Tiken Dja Fakoly')">
+            <div class="thumb" style="background-image:url('tiken_dja_fakoly.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Tiken Dja Fakoly</div>
+          </div>
+          <div class="card" onclick="openVideo('dJ74-H22N9g', 'Slam & Humour')">
+            <div class="thumb" style="background-image:url('festival_slam_humour.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Slam & Humour</div>
+          </div>
         </div>
+      </div>
+
+      <div class="ad-banner" style="margin:0 12px 24px;border-radius:12px;overflow:hidden;">
+        <img src="pub_bet223.png" alt="Bet223" style="width:100%;height:auto;display:block;border-radius:12px;">
       </div>
 
       <div class="section">
         <div class="section-head"><h3>SÉRIE</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"><span class="badge new">Nouveau</span></div><h4>Fanga</h4><div class="meta">2 145 vues • Ép. 3</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Djandjo</h4><div class="meta">3 876 vues • Ép. 5</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Série Africaine</h4><div class="meta">980 vues • Ép. 12</div></div>
+          <div class="card" onclick="openVideo('4r1_c7aNJ00', 'FANGA')">
+            <div class="thumb" style="background-image:url('fanga_affiche.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">FANGA</div>
+          </div>
+          <div class="card" onclick="openVideo('13W3ecR0nGQ', 'Djandjo')">
+            <div class="thumb" style="background-image:url('djandjo_vacances.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Djandjo</div>
+          </div>
+          <div class="card card-square" onclick="openVideo('qE2btkWL9Fs', 'La Directrice')">
+            <div class="thumb" style="background-image:url('la_directrice.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">La Directrice</div>
+          </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-head"><h3>MAGAZINES</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Magazine Culture</h4><div class="meta">1 320 vues • 05/09</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Magazine Sport</h4><div class="meta">2 410 vues • 03/09</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Magazine Société</h4><div class="meta">1 088 vues • 01/09</div></div>
+          <div class="card" onclick="openVideo('lp5Tc6fwTk4', 'Panser le Mali')">
+            <div class="thumb" style="background-image:url('livres_fousseyni.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Panser le Mali</div>
+          </div>
+          <div class="card" onclick="openVideo('y4knzrlb-tM', 'Mi Ya Sudu Baba')">
+            <div class="thumb" style="background-image:url('mi_ya_sudu_baba.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Mi Ya Sudu Baba</div>
+          </div>
+          <div class="card" onclick="openVideo('BN2z9-WEMxE', 'MDR 3 - Mali du Rire')">
+            <div class="thumb" style="background-image:url('mdr3_mali_du_rire.png');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">MDR 3 - Mali du Rire</div>
+          </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-head"><h3>CONCERTS</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"><span class="badge new">Nouveau</span></div><h4>Concert Salif Keita</h4><div class="meta">4 210 vues • 31/08</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Festival Ségou</h4><div class="meta">2 655 vues • 20/08</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Nuit Acoustique</h4><div class="meta">890 vues • 15/08</div></div>
+          <div class="card" onclick="openVideo('LlX9udUOeRk', 'Recto Verso')">
+            <div class="thumb" style="background-image:url('recto_verso.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Recto Verso</div>
+          </div>
+          <div class="card card-square" onclick="openVideo('gQHQbPArwBY', 'Spéciale Biennale')">
+            <div class="thumb" style="background-image:url('speciale_biennale.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Spéciale Biennale</div>
+          </div>
+          <div class="card" onclick="openVideo('5RCe8gNCW14', 'Tournoi Bras de Fer')">
+            <div class="thumb" style="background-image:url('bras_de_fer.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Tournoi Bras de Fer</div>
+          </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-head"><h3>SPECTACLES</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Spectacle Humour</h4><div class="meta">1 740 vues • 28/08</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Théâtre Bamako</h4><div class="meta">932 vues • 22/08</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"><span class="badge new">Nouveau</span></div><h4>Danse Traditionnelle</h4><div class="meta">1 205 vues • 18/08</div></div>
+          <div class="card" onclick="openVideo('TEeWVU2yE68', 'Mariam Ba')">
+            <div class="thumb" style="background-image:url('mariam_ba.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Mariam Ba</div>
+          </div>
+          <div class="card" onclick="openVideo('GRI0D7PJzP8', 'Oumou Sangaré')">
+            <div class="thumb" style="background-image:url('oumou_sangare.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Oumou Sangaré</div>
+          </div>
+          <div class="card" onclick="openVideo('9wamMYw2G9s', 'Abdoulaye Diabaté')">
+            <div class="thumb" style="background-image:url('abdoulaye_diabate.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Abdoulaye Diabaté</div>
+          </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-head"><h3>D3 EN BAMBARA</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"><span class="badge live">Direct</span></div><h4>Journal Bambara</h4><div class="meta">3 402 vues • Aujourd'hui</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Conte Bambara</h4><div class="meta">1 567 vues • 09/09</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Débat Bambara</h4><div class="meta">2 019 vues • 08/09</div></div>
+          <div class="card" onclick="openVideo('9srdXW668EM', 'Tiken Dja Fakoly')">
+            <div class="thumb" style="background-image:url('tiken_dja_bambara.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Tiken Dja Fakoly</div>
+          </div>
+          <div class="card" onclick="openVideo('WGYqPUurwaM', 'Regard Intime de Yaye')">
+            <div class="thumb" style="background-image:url('regard_yaye.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Regard Intime de Yaye</div>
+          </div>
+          <div class="card" onclick="openVideo('F0XfPsfN9Yw', 'Yaye')">
+            <div class="thumb" style="background-image:url('yaye_portrait.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Yaye</div>
+          </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-head"><h3>ÉMISSIONS</h3><span class="chevron">›</span></div>
         <div class="hscroll">
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"><span class="badge new">Nouveau</span></div><h4>Talk-show Mali</h4><div class="meta">2 780 vues • 11/09</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>Cuisine d'ici</h4><div class="meta">1 654 vues • 09/09</div></div>
-          <div class="card"><div class="thumb" style="background-image:url('logo.jpg');"></div><h4>D3 Jeunesse</h4><div class="meta">1 205 vues • 06/09</div></div>
+          <div class="card" onclick="openVideo('V7inaUv2DRI', 'Mi Ya Sudu Baba')">
+            <div class="thumb" style="background-image:url('mi_ya_sudu_baba.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Mi Ya Sudu Baba</div>
+          </div>
+          <div class="card" onclick="openVideo('1PUnd1HRA2U', 'Mariam Ba')">
+            <div class="thumb" style="background-image:url('mariam_ba.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Mariam Ba</div>
+          </div>
+          <div class="card" onclick="openVideo('lCCUkeXJMvU', 'Oumou Sangaré')">
+            <div class="thumb" style="background-image:url('oumou_sangare.jpg');">
+              <div class="play-badge"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <span class="badge new">Nouveau</span>
+            </div>
+            <div class="card-name">Oumou Sangaré</div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="screen" id="screen-actualites">
       <div class="section">
-        <div class="section-head"><h3>Actualités</h3></div>
-        <div class="list-row"><div><div class="list-title">Sacre du Sénégal, la victoire des valeurs culturelles…</div><div class="list-tag">SPORT • 20 janvier 2026</div></div></div>
-        <div class="list-row"><div><div class="list-title">Focus ICC : le droit d'auteur et ses implications au Mali</div><div class="list-tag">Société • 24 juillet 2025</div></div></div>
-        <div class="list-row"><div><div class="list-title">Culture et Société : La pirogue, symbole d'unité et de diversité à Mopti</div><div class="list-tag">Société • 23 juillet 2025</div></div></div>
-        <div class="list-row"><div><div class="list-title">Art plastique au Mali : le regard intime et engagé de Yaye Keita</div><div class="list-tag">Arts visuels • 23 juillet 2025</div></div></div>
-        <div class="list-row"><div><div class="list-title">Littérature : Fousseyni Maïga publie deux nouveaux livres sur le Mali</div><div class="list-tag">Littérature • 23 juillet 2025</div></div></div>
-        <div class="list-row"><div><div class="list-title">Le Voile Secret – Film malien d'amour de Fousseyni Maïga</div><div class="list-tag">Cinéma • 3 février 2025</div></div></div>
+        <div class="section-head"><h3>Actualités D3TV</h3></div>
+        
+        <div class="news-card" onclick="openNews(4230)">
+          <div class="news-thumb" style="background-image:url('news_1.jpg');"></div>
+          <div class="news-body">
+            <span class="news-cat">SPORT</span>
+            <div class="news-title">Sacre du Sénégal, la victoire des valeurs culturelles…</div>
+            <div class="news-excerpt">Le Sénégal vient de remporter sa deuxième Coupe d’Afrique des Nations (CAN) au Maroc...</div>
+            <div class="news-date">20 janvier 2026</div>
+          </div>
+        </div>
+
+        <div class="news-card" onclick="openNews(2789)">
+          <div class="news-thumb" style="background-image:url('news_2.jpg');"></div>
+          <div class="news-body">
+            <span class="news-cat">Société</span>
+            <div class="news-title">Focus ICC : le droit d’auteur et ses implications au Mali</div>
+            <div class="news-excerpt">Découvrez les enjeux du droit d’auteur et des droits voisins au Mali. Rôle du BUMDA, protection des œuvres...</div>
+            <div class="news-date">24 juillet 2025</div>
+          </div>
+        </div>
+
+        <div class="news-card" onclick="openNews(2729)">
+          <div class="news-thumb" style="background-image:url('news_3.jpg');"></div>
+          <div class="news-body">
+            <span class="news-cat">Société</span>
+            <div class="news-title">Culture et Société : La pirogue, symbole d’unité et de diversité à Mopti</div>
+            <div class="news-excerpt">À Mopti, la course de pirogues sur le fleuve Niger est un symbole d’unité et de diversité...</div>
+            <div class="news-date">23 juillet 2025</div>
+          </div>
+        </div>
+
+        <div class="news-card" onclick="openNews(2726)">
+          <div class="news-thumb" style="background-image:url('news_4.jpg');"></div>
+          <div class="news-body">
+            <span class="news-cat">Arts visuels</span>
+            <div class="news-title">Art plastique au Mali : le regard intime et engagé de Yaye Keita</div>
+            <div class="news-excerpt">Découvrez Yaye Keita, artiste plasticienne malienne qui interroge la place des femmes et l'identité...</div>
+            <div class="news-date">23 juillet 2025</div>
+          </div>
+        </div>
+
+        <div class="news-card" onclick="openNews(2722)">
+          <div class="news-thumb" style="background-image:url('news_5.jpg');"></div>
+          <div class="news-body">
+            <span class="news-cat">Littérature</span>
+            <div class="news-title">Littérature : Fousseyni Maïga publie deux nouveaux livres sur le Mali</div>
+            <div class="news-excerpt">Dix ans après son dernier ouvrage, Fousseyni Maïga publie deux essais majeurs sur la culture et l'image...</div>
+            <div class="news-date">23 juillet 2025</div>
+          </div>
+        </div>
+
+        <div class="news-card" onclick="openNews(1)">
+          <div class="news-thumb" style="background-image:url('news_6.png');"></div>
+          <div class="news-body">
+            <span class="news-cat">Cinéma</span>
+            <div class="news-title">Le Voile Secret – Film malien d’amour de Fousseyni Maïga</div>
+            <div class="news-excerpt">Découvrez Le Voile Secret, un film malien d’amour réalisé par Fousseyni Maïga...</div>
+            <div class="news-date">3 février 2025</div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -295,36 +536,28 @@
     </section>
 
     <section class="screen" id="screen-emissions">
-      <div class="section-head"><h3>Replay</h3></div>
-      <div class="photo-card">
-        <div class="photo-thumb" style="background-image:url('logo.jpg');"><button class="photo-add">+</button></div>
-        <div class="photo-title">Avec Elles</div>
+      <div class="section-head"><h3>Émissions</h3></div>
+      <div class="photo-card" onclick="openVideo('4r1_c7aNJ00', 'FANGA')">
+        <div class="photo-thumb" style="background-image:url('fanga_affiche.jpg');"><button class="photo-add">▶</button></div>
+        <div class="photo-title">FANGA</div>
       </div>
-      <div class="photo-card">
-        <div class="photo-thumb" style="background-image:url('logo.jpg');"><button class="photo-add">+</button></div>
-        <div class="photo-title">Hommage à Boncana Maïga</div>
+      <div class="photo-card" onclick="openVideo('13W3ecR0nGQ', 'Djandjo')">
+        <div class="photo-thumb" style="background-image:url('djandjo_vacances.jpg');"><button class="photo-add">▶</button></div>
+        <div class="photo-title">Djandjo</div>
       </div>
-      <div class="photo-card">
-        <div class="photo-thumb" style="background-image:url('logo.jpg');"><button class="photo-add">+</button></div>
-        <div class="photo-title">Prestation Malaké — Hommage à Amadou</div>
+      <div class="photo-card" onclick="openVideo('QCXuonNJdg8', 'AVEC\' ELLES')">
+        <div class="photo-thumb" style="background-image:url('avec_elles.jpg');"><button class="photo-add">▶</button></div>
+        <div class="photo-title">AVEC' ELLES</div>
       </div>
-      <div class="photo-card">
-        <div class="photo-thumb" style="background-image:url('logo.jpg');"><button class="photo-add">+</button></div>
-        <div class="photo-title">Raconter le Mali Autrement</div>
-      </div>
-      <div class="photo-card">
-        <div class="photo-thumb" style="background-image:url('logo.jpg');"><button class="photo-add">+</button></div>
-        <div class="photo-title">Recto Verso</div>
-      </div>
-      <div class="photo-card">
-        <div class="photo-thumb" style="background-image:url('logo.jpg');"><button class="photo-add">+</button></div>
-        <div class="photo-title">Soun'Kalo 2</div>
+      <div class="photo-card" onclick="openVideo('V7inaUv2DRI', 'Mi Ya Sudu Baba')">
+        <div class="photo-thumb" style="background-image:url('mi_ya_sudu_baba.jpg');"><button class="photo-add">▶</button></div>
+        <div class="photo-title">Mi Ya Sudu Baba</div>
       </div>
     </section>
 
     <section class="screen" id="screen-premium">
-      <div class="section-head"><h3>D3 Premium</h3></div>
-      <div class="list-row"><div><div class="list-title">Bientot disponible</div><div class="list-tag">Films, series et contenus exclusifs en abonnement</div></div></div>
+      <div class="section-head"><h3>Téléchargements</h3></div>
+      <div class="list-row"><div><div class="list-title">Aucun téléchargement</div><div class="list-tag">Vos vidéos et contenus téléchargés apparaîtront ici hors-ligne</div></div></div>
     </section>
 
     <section class="screen" id="screen-compte">
@@ -384,15 +617,15 @@
     </button>
     <button class="tab" data-target="screen-emissions">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M8 21h8"/><path d="M12 18v3"/></svg>
-      <span>Replay</span>
+      <span>Émissions</span>
     </button>
     <button class="tab tab-live" data-target="screen-direct">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8a6 6 0 0 0 0 8"/><path d="M16 8a6 6 0 0 1 0 8"/><circle cx="12" cy="12" r="2"/></svg>
-      <span>Live</span>
+      <span>En Direct</span>
     </button>
     <button class="tab" data-target="screen-premium">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.9L22 9.3l-5.5 4.8L18 21l-6-3.9L6 21l1.5-6.9L2 9.3l7.4-.4z"/></svg>
-      <span>D3 Premium</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span>Téléchargements</span>
     </button>
     <button class="tab" data-target="screen-compte">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
@@ -403,7 +636,7 @@
   <div class="overlay" id="overlay"></div>
   <aside class="drawer" id="drawer">
     <div class="drawer-head">
-      <img class="logo-img" src="logo.jpg" alt="D3TV">
+      
       <button class="iconbtn" id="closeDrawer" aria-label="Fermer le menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
       </button>
@@ -428,6 +661,58 @@
     <p>(+223) 71 79 79 70 / 61 79 79 70</p>
     <p>contact@d3tv.net</p>
     <p>Banankabougou ZRNY, Bamako - Mali</p>
+  </div>
+
+  <div class="contact-overlay" id="notifOverlay" onclick="hideNotifs()"></div>
+  <div class="contact-card" id="notifCard">
+    <button class="iconbtn" onclick="hideNotifs()" aria-label="Fermer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+    </button>
+    <h3>Notifications</h3>
+    <div style="padding:10px 0;border-bottom:1px solid var(--border);">
+      <div style="font-weight:700;font-size:13px;color:var(--live);">🔴 En direct maintenant</div>
+      <div style="font-size:12px;margin-top:2px;color:var(--text);">Suivez le direct de Bamako sur D3TV</div>
+      <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">Il y a 5 min</div>
+    </div>
+    <div style="padding:10px 0;border-bottom:1px solid var(--border);">
+      <div style="font-weight:700;font-size:13px;color:var(--accent);">⭐ Nouveauté Série</div>
+      <div style="font-size:12px;margin-top:2px;color:var(--text);">Nouvel épisode de FANGA disponible !</div>
+      <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">Il y a 1h</div>
+    </div>
+    <div style="padding:10px 0;">
+      <div style="font-weight:700;font-size:13px;color:var(--accent);">🎉 Téléréalité</div>
+      <div style="font-size:12px;margin-top:2px;color:var(--text);">Retrouvez DJANDJO dès maintenant</div>
+      <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">Hier</div>
+    </div>
+  </div>
+
+  <div class="video-overlay" id="videoOverlay" onclick="closeVideo()"></div>
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-head">
+      <h3 id="videoTitle"></h3>
+      <button class="iconbtn" onclick="closeVideo()" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="video-player-box">
+      <iframe id="videoIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="news-overlay" id="newsOverlay" onclick="closeNews()"></div>
+  <div class="news-modal" id="newsModal">
+    <div class="news-modal-head">
+      <span class="news-cat" id="newsModalCat"></span>
+      <button class="iconbtn" onclick="closeNews()" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="news-modal-body">
+      <img id="newsModalImg" src="" alt="" style="width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:none;">
+      <h2 id="newsModalTitle"></h2>
+      <div id="newsModalDate" style="font-size:11px;color:var(--text-dim);margin-bottom:14px;"></div>
+      <div id="newsModalContent"></div>
+    </div>
   </div>
 
 </div>
@@ -478,8 +763,8 @@
   }
 
   const heroSlides = [
-    { img: 'logo.jpg', sub: '', cta: '' },
-    { img: 'logo.jpg', sub: '', cta: '' }
+    { img: 'fanga.jpg', sub: '', cta: '' },
+    { img: 'djandjo.jpg', sub: '', cta: '' }
   ];
   let heroIndex = 0;
   const heroEl = document.getElementById('hero');
@@ -509,7 +794,117 @@
     document.getElementById('contactCard').classList.remove('open');
   }
 
+  function showNotifs() {
+    document.getElementById('notifOverlay').classList.add('open');
+    document.getElementById('notifCard').classList.add('open');
+    const dot = document.querySelector('.dot');
+    if (dot) dot.style.display = 'none';
+  }
+  function hideNotifs() {
+    document.getElementById('notifOverlay').classList.remove('open');
+    document.getElementById('notifCard').classList.remove('open');
+  }
+  document.getElementById('bellBtn').addEventListener('click', showNotifs);
+  function openVideo(id, title) {
+    const overlay = document.getElementById('videoOverlay');
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('videoIframe');
+    const titleEl = document.getElementById('videoTitle');
+    titleEl.textContent = title || '';
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1';
+    overlay.classList.add('open');
+    modal.classList.add('open');
+  }
+  function closeVideo() {
+    const overlay = document.getElementById('videoOverlay');
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('videoIframe');
+    if (iframe) iframe.src = '';
+    if (overlay) overlay.classList.remove('open');
+    if (modal) modal.classList.remove('open');
+  }
+
+  const newsList = [
+  {
+    "id": 4230,
+    "title": "Sacre du Sénégal, la victoire des valeurs culturelles…",
+    "category": "SPORT",
+    "date": "20 janvier 2026",
+    "img": "news_1.jpg",
+    "excerpt": "Le Sénégal vient de remporter sa deuxième Coupe d’Afrique des Nations (CAN) au Maroc. Cet exploit du football sénégalais s’est réalisé dans un contexte très atypique, avec une forte pression",
+    "content": "<p>Le Sénégal vient de remporter sa deuxième Coupe d’Afrique des Nations (CAN) au Maroc. Cet exploit du football sénégalais s’est réalisé dans un contexte très atypique, avec une forte pression en amont de la finale et certainement des conséquences sportives, diplomatiques et sociales en aval de la compétition. La finale entre le Maroc et le Sénégal a défrayé la chronique et réserve bien de rebondissements. L’attitude du coach sénégalais Pape TIAW, après le penalty sifflé en faveur du Maroc, divise encore aujourd’hui l’opinion. Le comportement des joueurs sénégalais remet en cause plusieurs principes, footballistiques bien entendu, tout en jetant les bases d’une nouvelle forme de justice sociale dans le football.</p>\n<p>Après la charge émotionnelle suscitée par cette rencontre et un ensemble de faits décriés dans l’organisation de cette CAN, les spécialistes du ballon rond nous aideront certainement à mieux décrypter les événements. Les analyses de fond, les conséquences tirées par la CAF, la lecture de la FIFA et naturellement le recul des acteurs concernés, sans aucune distinction, ne cesseront point d’enrichir la jurisprudence footballistique. Mais d’ici là, il est important de se focaliser sur un fait : la réaction du joueur sénégalais Sadio MANE.</p>\n<p>Au-delà de son élégance sportive, du respect de la décision arbitrale, par ricochet des règles qui gouvernent le football, ou encore de son attitude fondamentalement fair-play, la réaction du joueur sénégalais met en lumière des valeurs culturelles africaines profondément capitales, à savoir celles de l’humilité, de l’écoute et de l’expérience avérée. Sadio MANE, dans une déclaration juste après le match, explique clairement les conditions ayant motivé sa posture constructive. Il reconnaît avoir sollicité les conseils de ses aînés El Hadj DIOUF et Mamadou NIANG, ainsi que l’avis du coach et consultant Claude LE ROY. Tous, aux dires du joueur, lui auraient conseillé de faire revenir ses coéquipiers sur le terrain et continuer le match. Aucun d’entre eux, en suggérant cette option, ne savait le scénario qui se dessinait. Tous, inéluctablement, s’attendaient à une victoire du Maroc.</p>\n<p>Malgré la certitude d’un combat déjà perdu, Sadio MANE a fait le pari de contester la posture de son entraîneur. Il s’est inscrit dans une démarche constructive. Il s’est aligné sur la vision de ses interlocuteurs. Laquelle vision s’est fondée sur les principes du football et la nécessité de préserver, même dans un contexte présumé « d’injustice avérée », l’esprit du football et la crédibilité du Sénégal, du pays organisateur et de la CAN. En adoptant sa posture, le joueur sénégalais a sauvé d’abord son pays, ensuite la compétition et enfin le match. L’attitude du joueur sénégalais, au-delà des émotions et des principes du football, met en valeur l’importance de l’intelligence collective et de l’écoute. En recueillant l’avis des autres, le joueur sénégalais a fait preuve d’une grande humilité. Aussi, en prenant en compte leurs conseils, il a fait preuve d’une grande capacité d’écoute. Enfin, au regard de l’expertise des uns et des autres, le comportement de Sadio MANE magnifie l’expérience et la compétence.</p>\n<p>Cette finale de la CAN est un cas d’école qui rappelle que les valeurs culturelles africaines peuvent encore servir de support dans la résolution de bien de crises. L’attitude du joueur sénégalais, saluée aujourd’hui de manière unanime, se veut la suite logique d’un comportement forgé dans les valeurs de l’éducation traditionnelle sénégalaise et construit tout au long de sa carrière exemplaire. Ce sacre, contre vents et marées, du Sénégal est le triomphe des valeurs culturelles africaines et la manifestation d’une prescription religieuse selon laquelle « Dieu, le tout Miséricorde, élève toujours les humbles et résistent aux orgueilleux ». (Jacques 4:6-8). (Sourate 58, verset 11).</p>\n<p style=\"text-align: right;\"><strong>Stéphanie MAIGA</strong></p>"
+  },
+  {
+    "id": 2789,
+    "title": "Focus ICC : le droit d’auteur et ses implications au Mali | D3 TV",
+    "category": "Societé",
+    "date": "24 juillet 2025",
+    "img": "news_2.jpg",
+    "excerpt": "Découvrez les enjeux du droit d’auteur et des droits voisins au Mali. Rôle du BUMDA, protection des œuvres, redevances et implications pour les créateurs et les industries culturelles.",
+    "content": "<p>&nbsp;</p>\n<p><!-- ===== META SEO ===== --></p>\n<p><!-- (facultatif) Keywords --></p>\n<p><!-- ===== Open Graph / Twitter (aperçus réseaux) ===== --></p>\n<p>&nbsp;</p>\n<article>\n<header>\n<h1></h1>\n<p><!-- ===== CHAPEAU (intro courte, SEO-friendly) ===== --></p>\n<p class=\"chapeau\" style=\"font-size: 1.05rem; line-height: 1.6; margin-top: .5rem;\">Au Mali, le <strong>droit d’auteur</strong> et les <strong>droits voisins</strong> protègent les œuvres de l’esprit et organisent<br />\nla rémunération de leurs créateurs. De la musique au cinéma, le <strong>BUMDA</strong> collecte et répartit les<br />\nredevances pour garantir une exploitation équitable. Voici l’essentiel à connaître.</p>\n<figure class=\"wp-caption aligncenter\" style=\"max-width: 900px; margin: 1rem auto;\"><img fetchpriority=\"high\" decoding=\"async\" src=\"https://d3tv.net/wp-content/uploads/2025/08/crop-ethnic-businessman-signing-papers.jpg\" alt=\"Signature d’un contrat illustrant le droit d’auteur au Mali\" width=\"1200\" height=\"630\" /><figcaption class=\"wp-caption-text\">Protéger, autoriser, rémunérer : les trois piliers du droit d’auteur.</figcaption></figure>\n<p><!-- Infos auteur/date (affichage selon thème) --></p>\n<p style=\"color: #555;\"><small>Par D3 TV — <time datetime=\"2025-07-24T10:10:00+00:00\">24 juillet 2025</time></small></p>\n</header>\n<div>\n<h2>Qu’est-ce que le droit d’auteur ?</h2>\n<p>Le droit d’auteur confère à l’auteur des <strong>droits moraux</strong> (paternité, respect de l’œuvre, droit de divulgation)<br />\net des <strong>droits patrimoniaux</strong> (reproduction, représentation, mise à disposition, adaptation). Il permet<br />\nd’autoriser ou d’interdire l’utilisation d’une œuvre et d’en percevoir une rémunération. Il s’applique aux<br />\nœuvres de l’esprit : <em>musique, film, dessin, sculpture, photo, littérature</em>, etc.</p>\n<h2>Que recouvrent les droits voisins ?</h2>\n<p>Les <strong>droits voisins</strong> concernent des contributeurs essentiels sans être auteurs : <strong>artistes-interprètes<br />\nou exécutants</strong>, <strong>producteurs</strong> d’enregistrements sonores/visuels et <strong>radiodiffuseurs</strong>. Ils complètent<br />\nle droit d’auteur et organisent leur rémunération lors de l’exploitation publique des prestations.</p>\n<h2>Le BUMDA : l’organisme de gestion collective au Mali</h2>\n<p>Le <strong>Bureau Malien du Droit d’Auteur (BUMDA)</strong>, créé par l’Ordonnance n°00-042/P-RM du 21 septembre 2000,<br />\nest un établissement public à caractère professionnel, doté de la personnalité morale et de l’autonomie financière,<br />\nsous la tutelle du ministère de la Culture. Sa mission centrale : <strong>organiser et représenter</strong> les auteurs<br />\nd’œuvres littéraires et artistiques ainsi que leurs ayants droit.</p>\n<ul>\n<li><strong>Perception</strong> des redevances issues de l’exploitation des œuvres et prestations.</li>\n<li><strong>Répartition</strong> des montants collectés entre les ayants droit selon des barèmes établis.</li>\n<li><strong>Licences</strong> et autorisations d’utilisation pour les diffuseurs et exploitants.</li>\n</ul>\n<h2>Redevances : principe et barèmes</h2>\n<p>La <strong>redevance de droit d’auteur</strong> est la contrepartie de l’utilisation d’une œuvre (concerts, diffusions TV/radio,<br />\nVOD/plateformes, reproduction, projection, etc.). Elle constitue le <em>salaire différé</em> de l’artiste et n’est<br />\n<strong>ni un impôt, ni une taxe</strong>. Elle est due par l’utilisateur (organisateur, diffuseur, exploitant).</p>\n<p>Les barèmes peuvent être <strong>proportionnels</strong> (pourcentage sur prix/recettes) ou <strong>forfaitaires</strong> (montant fixe selon<br />\nl’usage, l’audience, la durée, le territoire, la nature de l’établissement).</p>\n<h2>À retenir</h2>\n<ul>\n<li>Le droit d’auteur protège les œuvres et rémunère leur exploitation.</li>\n<li>Les droits voisins couvrent interprètes, producteurs et radiodiffuseurs.</li>\n<li>Le BUMDA perçoit/répartit les droits et délivre des licences au Mali.</li>\n</ul>\n<p><!-- ===== MINI FAQ (utile SEO & AdSense, simple et non promotionnel) ===== --></p>\n<h2>FAQ — Droit d’auteur au Mali</h2>\n<h3>Qui doit payer la redevance ?</h3>\n<p>Toute personne ou structure qui utilise publiquement une œuvre (diffusion, reproduction, représentation) selon les barèmes en vigueur.</p>\n<h3>Un contrat écrit est-il nécessaire ?</h3>\n<p>Oui. Une licence ou cession précise l’étendue des droits, la durée, le territoire, les supports et la rémunération.</p>\n<p><!-- ===== CHUTE (conclusion éditoriale) ===== --></p>\n<h2>Chute — Culture, économie et équité</h2>\n<p>Le droit d’auteur n’est pas qu’un cadre juridique : c’est un <strong>levier de valorisation</strong> pour la culture et les<br />\nindustries créatives. Sa bonne application garantit une <strong>rémunération équitable</strong>, soutient l’<strong>innovation</strong> et<br />\nrenforce l’<strong>écosystème culturel</strong> au Mali.</p>\n</div>\n<footer>\n<p style=\"color: #555;\"><small>Catégorie : Société • Mots-clés : droit d’auteur Mali, droits voisins, BUMDA, redevance, propriété intellectuelle</small></p>\n</footer>\n</article>\n<p><!-- ===================== JSON-LD (3 niveaux) ===================== --></p>\n<p><!-- 1) WebSite (avec SearchAction) --><br />\n</p>\n<p><!-- 2) Fil d’Ariane --><br />\n</p>\n<p><!-- 3) NewsArticle (Google News / AdSense friendly) --><br />\n</p>\n<p>&nbsp;</p>"
+  },
+  {
+    "id": 2729,
+    "title": "Culture et Société : La pirogue, symbole d’unité et de diversité à Mopti",
+    "category": "Societé",
+    "date": "23 juillet 2025",
+    "img": "news_3.jpg",
+    "excerpt": "À Mopti, la course de pirogues sur le fleuve Niger est un symbole d’unité et de diversité. Un patrimoine immatériel vivant qui rassemble et inspire.",
+    "content": "<p><!-- === META (utile si votre thème n'injecte pas déjà la balise) === --></p>\n<p><!-- === Hn + CONTENU === --></p>\n<article>\n<header>\n<h1></h1>\n<p><!-- Infos (facultatives, affichage front selon thème) --></p>\n<p><small>Publié par D3 TV • <time datetime=\"2025-08-25\">25 août 2025</time> • <time datetime=\"2025-08-25\"></time></small></p>\n</header>\n<div>\n<p><strong>À Mopti, la course de pirogues</strong> n’est pas qu’un spectacle : c’est un langage commun. Depuis des siècles, elle relie les rives du fleuve Niger et <em>fait tenir la ville</em> par ses valeurs de solidarité, de transmission et d’ouverture. Dans l’imaginaire collectif, la pirogue incarne à la fois l’outil de vie, le lien entre générations et un repère culturel fort.</p>\n<h2>Un patrimoine immatériel vivant qui rassemble</h2>\n<p>La <strong>course de pirogues à Mopti</strong> dépasse la recherche de vitesse. Elle célèbre l’unité, la coexistence pacifique et l’attachement aux racines. Chaque édition réunit jeunes rameurs, anciens gardiens des traditions, artisans du fleuve et familles, dans une ambiance populaire où l’on partage chants, récits et espoirs.</p>\n<h2>Identité, diversité et fierté locale</h2>\n<p>Souvent réduite à ses défis, Mopti révèle ici son vrai visage : une ville d’énergie et de créativité. <strong>Bozos, Peuls, Dogons, Bambaras, Songhaïs</strong>… tous participent. Les différences n’y divisent pas : elles enrichissent. Chaque équipe apporte ses couleurs, ses symboles et sa manière de ramer ; tout le monde y trouve sa place.</p>\n<h2>Plus qu’une course : une leçon d’unité en action</h2>\n<p>Dans un contexte de mutations rapides, la course rappelle que les traditions vivantes — danses, fêtes populaires, compétitions fluviales — sont des <strong>outils puissants de cohésion</strong>. Elles tissent du lien, transmettent des valeurs et portent une identité commune. Ici, la culture n’est pas un souvenir : elle est action.</p>\n<h2>Les berges comme scène, le fleuve comme trait d’union</h2>\n<p>Au moment de la course, les berges du fleuve Niger deviennent des tribunes : on s’y retrouve, on y célèbre. Le fleuve se fait scène, la pirogue devient symbole, et la ville entière bat à l’unisson. <strong>La course appartient à tous</strong> — c’est ce qui fait sa beauté et sa force.</p>\n<h2>Préserver et valoriser ce qui nous relie</h2>\n<p>Le patrimoine ne se limite pas aux monuments. Il est aussi ce que l’on vit : les gestes, les savoir-faire, les émotions partagées. Préserver la <strong>course de pirogues</strong>, c’est préserver une mémoire commune et récréer les conditions d’une action collective en faveur du fleuve Niger et de ses atouts.</p>\n<blockquote><p>La course des pirogues à Mopti est un héritage vivant : elle unit, inspire et montre que l’avenir peut s’écrire ensemble.</p></blockquote>\n</div>\n</article>\n<p><!-- === BREADCRUMB (facultatif en affichage, utile SEO) === --></p>\n<nav aria-label=\"Fil d’Ariane\">\n<ol style=\"list-style: none; padding: 0; margin: 1rem 0;\">\n<li style=\"display: inline;\"><a href=\"https://d3tv.net/\">Accueil</a><br />\n›</li>\n<li style=\"display: inline;\"><a href=\"https://d3tv.net/culture/\">Culture &amp; Société</a><br />\n›</li>\n<li style=\"display: inline;\">Course de pirogues à Mopti</li>\n</ol>\n</nav>\n<p><!-- === JSON-LD : WebSite + SearchAction === --><br />\n</p>\n<p><!-- === JSON-LD : Fil d'Ariane === --><br />\n</p>\n<p><!-- === JSON-LD : NewsArticle (compatible Google News / AdSense) === --><br />\n</p>\n<p><!-- === RECOMMANDATIONS WP / RANK MATH (à faire dans l’interface) === Mot-clé principal : course de pirogues Mopti Mots-clés secondaires : pirogue Mopti, fleuve Niger, patrimoine immatériel Mali, tradition malienne, diversité culturelle, unité sociale, course de pirogues Mali, culture Mopti Slug conseillé : /culture/course-pirogues-mopti/ Extrait (meta description) : 155–160 caractères (déjà fourni en META ci-dessus) Texte alternatif image (ALT) : Course de pirogues sur le fleuve Niger à Mopti au Mali Image recommandée : ≥1200 px de large, ratio proche 16:9, poids optimisé (WebP/JPEG progressif) =================================================================== --></p>"
+  },
+  {
+    "id": 2726,
+    "title": "Art plastique au Mali : le regard intime et engagé de Yaye Keita",
+    "category": "Arts visuels",
+    "date": "23 juillet 2025",
+    "img": "news_4.jpg",
+    "excerpt": "Découvrez Yaye Keita, artiste plasticienne malienne qui, à travers ses autoportraits, interroge la place des femmes, la beauté, la dépigmentation et l’identité culturelle en Afrique.",
+    "content": "<p>&nbsp;</p>\n<article>\n<header></header>\n<section><strong>Yaye Keita</strong>, jeune artiste plasticienne malienne, se distingue par un regard artistique profondément intime et engagé. A travers ses autoportraits sur toile inspirés des coiffures traditionnelles, elle interroge la place des femmes dans la société contemporaine et ouvre un débat essentiel sur la beauté, l’identité et l’émancipation féminine.Excellant dans l’art figuratif et contemporain, Yaye explore une multitude de coiffures traditionnelles pour susciter une réflexion sur la condition des femmes au Mali et en Afrique. Dans ses œuvres, elle milite pour les femmes victimes du vitiligo et les encourage à embrasser leur propre beauté, sans céder à la dépigmentation volontaire. Son art devient ainsi une voix forte contre les normes esthétiques dominantes et les pressions sociales autour de l’apparence.</section>\n<section>\n<h2>Un combat artistique et identitaire</h2>\n<p>Chaque toile raconte une histoire. Chaque pinceau trace un combat : celui de l’estime de soi, de l’affirmation identitaire et de la valorisation des différences. Dans un monde globalisé où les réseaux sociaux imposent des standards uniformisés de beauté, <strong>Yaye Keita</strong> oppose des visages forts, des récits intimes, des textures locales et des imaginaires africains.</p>\n<p>« On n’a pas besoin de changer pour exister », semble dire son œuvre, qui touche une génération entière de jeunes femmes en quête de repères. Par son art, Yaye interpelle aussi les institutions, les médias et le monde de l’art globalisé, appelant à revaloriser des identités souvent marginalisées : les femmes, les peaux différentes, les corps oubliés.</p>\n</section>\n<section>\n<h2>Un regard neuf sur l’art africain contemporain</h2>\n<p>Avec son regard neuf, sensible mais politique, <strong>Yaye Keita</strong> participe à la construction d’une nouvelle dynamique de l’art africain contemporain : un art qui ne copie plus, mais qui affirme, revendique et trace sa propre voie.</p>\n</section>\n</article>\n<p><!-- JSON-LD Schema --><br />\n</p>\n<p>&nbsp;</p>"
+  },
+  {
+    "id": 2722,
+    "title": "Littérature : Fousseyni Maïga publie deux nouveaux livres sur le Mali | D3 TV",
+    "category": "Littérature",
+    "date": "23 juillet 2025",
+    "img": "news_5.jpg",
+    "excerpt": "Dix ans après son dernier ouvrage, Fousseyni Maïga publie deux essais majeurs : « Mali, l’image et ses enjeux socioéconomiques » et « Mali, la culture à l’aune du choc des civilisations ». Des clés pour comprendre l’image, la culture et les industries créatives au Mali.",
+    "content": "<p><!-- ===== SEO (à coller dans Rank Math) ===== Title SEO : Littérature : Fousseyni Maïga publie deux nouveaux livres sur le Mali | D3 TV Meta description : Deux essais de Fousseyni Maïga explorent l’image et la culture au Mali : enjeux socioéconomiques, industries culturelles et perspectives stratégiques. Présentation, thèmes clés et parcours de l’auteur. Mots-clés Rank Math (focus keywords, séparés par des virgules) : Fousseyni Maïga, littérature malienne, culture au Mali, cinéma malien, industries culturelles Mali, image et audiovisuel au Mali, identité filmique malienne, choc des civilisations au Mali, documentaire Fatôw, D3 TV =========================================== --></p>\n<p><!-- ===================== CONTENU HTML ===================== --></p>\n<article class=\"entry-content\">\n<h1></h1>\n<p>Dix ans après son précédent ouvrage, le cinéaste et chercheur malien <strong>Fousseyni Maïga</strong><br />\nsigne le retour à l’écriture avec la parution de <strong>deux essais</strong> complémentaires sur la<br />\n<em>culture au Mali</em> et sur les <em>enjeux socioéconomiques de l’image</em>. Pensés comme des outils<br />\nde compréhension et d’aide à la décision, ces livres éclairent les dynamiques à l’œuvre dans le<br />\n<strong>cinéma malien</strong>, l’audiovisuel et, plus largement, les <strong>industries culturelles</strong>.</p>\n<h2>1) « Mali, l’image et ses enjeux socioéconomiques »</h2>\n<p>Ce premier volume propose une lecture transversale de l’<strong>image</strong> au Mali : ses usages, ses<br />\nimpacts sociétaux et politiques, ses retombées économiques. En croisant analyses conceptuelles et cas<br />\npratiques, l’auteur questionne le lien entre <em>image</em> et <em>imaginaire collectif</em> et plaide pour<br />\nla construction d’une <strong>identité filmique malienne</strong>.</p>\n<ul>\n<li>Comprendre « <strong>comment l’image change une société</strong> ».</li>\n<li>Mesurer les externalités positives de l’audiovisuel (éducation, cohésion, attractivité).</li>\n<li>Orienter l’écosystème vers la <strong>création de valeur</strong> (sociale, culturelle, économique).</li>\n<li>Pistes opérationnelles pour le <strong>cinéma</strong>, l’<strong>audiovisuel</strong> et le <strong>numérique</strong>.</li>\n</ul>\n<h2>2) « Mali, la culture à l’aune du choc des civilisations »</h2>\n<p>Le second ouvrage met en perspective la <strong>culture</strong> comme moteur de recomposition de l’imaginaire,<br />\nvecteur de mobilisation citoyenne et <strong>levier de développement territorial</strong>. À partir d’un<br />\nregard à la fois rétrospectif et prospectif, l’auteur analyse les effets sociaux, économiques et<br />\ninstitutionnels des politiques culturelles.</p>\n<ul>\n<li>Place stratégique de la culture dans un contexte de <em>choc des civilisations</em>.</li>\n<li>Rôle des arts dans la <strong>cohésion</strong>, la <strong>résilience</strong> et l’<strong>économie créative</strong>.</li>\n<li>Chapitre dédié à la condition des artistes et aux cadres de soutien.</li>\n<li>Retour d’expérience : réalisation du documentaire <strong>FATÔW (LES FOUS)</strong>, primé au FESPACO 2025.</li>\n</ul>\n<h2>Pourquoi ces livres comptent pour le Mali ?</h2>\n<p>Ensemble, ces essais apportent un socle méthodologique pour structurer les <strong>industries culturelles et<br />\ncréatives</strong>. Ils visent à outiller les <strong>décideurs publics</strong>, les institutions, les<br />\nprofessionnels (producteurs, diffuseurs, programmateurs), mais aussi les enseignants, étudiants et<br />\nchercheurs intéressés par l’<strong>image</strong> et la <strong>culture au Mali</strong>.</p>\n<h2>À propos de l’auteur</h2>\n<p><strong>Fousseyni Maïga</strong> est l’un des cinéastes maliens les plus prolifiques des cinq dernières<br />\nannées, avec une vingtaine d’œuvres réalisées et plus de cinquante projets produits. Médaillé du Mérite<br />\nnational (Mali) et <em>Chevalier de l’Ordre des arts, des lettres et de la communication</em> (Burkina Faso),<br />\nil dirige depuis 2022 le <strong>Centre national de la cinématographie du Mali</strong> et mène des travaux<br />\nde recherche au <em>Laboratoire d’Anthropologie visuelle collaborative</em> (LAVISCOL). Sa thèse porte<br />\nsur « l’image, les images et l’imaginaire à l’aune de la reculturalisation au Mali ».</p>\n<h2>Informations pratiques</h2>\n<ul>\n<li><strong>Auteur :</strong> Fousseyni Maïga</li>\n<li><strong>Genres :</strong> Essais – image, cinéma, culture</li>\n<li><strong>Publics :</strong> décideurs, professionnels, académiques, étudiants, lecteurs curieux</li>\n<li><strong>Disponibilité :</strong> parution prochaine (Mali &amp; distribution internationale à venir)</li>\n</ul>\n<p><em>Restez connectés sur D3 TV pour la date de sortie, les extraits et les rencontres publiques.</em></p>\n</article>\n<p><!-- ===================== JSON-LD #1 : ORGANISATION + SITE ===================== --><br />\n</p>\n<p><!-- ===================== JSON-LD #2 : BREADCRUMB ===================== --><br />\n</p>\n<p><!-- ===================== JSON-LD #3 : ARTICLE (BlogPosting) ===================== --><br />\n</p>"
+  },
+  {
+    "id": 1,
+    "title": "Le Voile Secret – Film malien d’amour de Fousseyni Maïga | D3 TV",
+    "category": "Cinema",
+    "date": "3 février 2025",
+    "img": "news_6.png",
+    "excerpt": "Découvrez Le Voile Secret, un film malien d’amour réalisé par Fousseyni Maïga. Diffusé en exclusivité sur D3 TV, ce chef-d’œuvre explore passion, trahison et espoir.",
+    "content": "<p data-start=\"740\" data-end=\"1059\">À l’occasion de la fête de l’amour, D3 TV diffuse en exclusivité <em data-start=\"805\" data-end=\"822\">Le Voile Secret</em>, un film malien d’amour signé par le talentueux réalisateur <strong data-start=\"883\" data-end=\"902\">Fousseyni Maïga</strong>. Entre passion, trahison et espoir, ce chef-d’œuvre cinématographique nous plonge au cœur d’une histoire d’amour contrariée qui a marqué le cinéma malien.</p>\n<h2 data-start=\"1066\" data-end=\"1108\">Une œuvre de référence du cinéma malien</h2>\n<p data-start=\"1110\" data-end=\"1493\">Pour célébrer la Saint-Valentin, D3 TV vous propose de découvrir ou redécouvrir <em data-start=\"1190\" data-end=\"1207\">Le Voile Secret</em>, le film malien qui détient l’un des records d’entrées dans les salles de cinéma du pays. Première réalisation de <strong data-start=\"1322\" data-end=\"1341\">Fousseyni Maïga</strong>, ce long métrage explore des thématiques universelles : l’amour interdit, le sacrifice, la douleur de la trahison et la résilience face aux épreuves.</p>\n<h2 data-start=\"1500\" data-end=\"1540\">Une histoire d’amour et de conviction</h2>\n<p data-start=\"1542\" data-end=\"1792\"><img decoding=\"async\" class=\"aligncenter size-large wp-image-1222\" src=\"https://d3tv.net/wp-content/uploads/2025/02/Le-Voile-Secret-Film-entier-Fousseyni-MAIGA-1024x768.jpeg\" alt=\"\" width=\"640\" height=\"480\" srcset=\"https://d3tv.net/wp-content/uploads/2025/02/Le-Voile-Secret-Film-entier-Fousseyni-MAIGA-1024x768.jpeg 1024w, https://d3tv.net/wp-content/uploads/2025/02/Le-Voile-Secret-Film-entier-Fousseyni-MAIGA-300x225.jpeg 300w, https://d3tv.net/wp-content/uploads/2025/02/Le-Voile-Secret-Film-entier-Fousseyni-MAIGA-768x576.jpeg 768w, https://d3tv.net/wp-content/uploads/2025/02/Le-Voile-Secret-Film-entier-Fousseyni-MAIGA-600x450.jpeg 600w, https://d3tv.net/wp-content/uploads/2025/02/Le-Voile-Secret-Film-entier-Fousseyni-MAIGA.jpeg 1080w\" sizes=\"(max-width: 640px) 100vw, 640px\" /></p>\n<p data-start=\"1542\" data-end=\"1792\">Djibril, un mécanicien modeste, tombe éperdument amoureux d’Aïda, la fille unique d’un riche opérateur économique. Leur amour sincère se heurte au refus catégorique de la famille d’Aïda, qui rêve d’un prétendant issu d’une lignée plus prestigieuse.</p>\n<p data-start=\"1794\" data-end=\"2192\">Sous la pression du père de sa bien-aimée, Djibril cède à la tentation de Djamila, la meilleure amie d’Aïda. Cette trahison plonge Aïda dans une profonde dépression, laissant libre cours à l’influence néfaste de sa tante, Maman Salimata, proxénète sans scrupules. Exploitant la fragilité de sa nièce, cette dernière tente de la marier à l’un de ses clients influents : le redoutable Chef Sangaré.</p>\n<h2 data-start=\"2199\" data-end=\"2262\">Distribution exceptionnelle du film malien <em data-start=\"2245\" data-end=\"2262\">Le Voile Secret</em></h2>\n<p data-start=\"2264\" data-end=\"2350\">Le film met en lumière les performances remarquables de comédiens maliens de renom :</p>\n<ul data-start=\"2352\" data-end=\"2671\">\n<li data-start=\"2352\" data-end=\"2410\">\n<p data-start=\"2354\" data-end=\"2410\"><strong data-start=\"2354\" data-end=\"2378\">Magma Gabriel Konaté</strong>, dans le rôle du Chef Sangaré</p>\n</li>\n<li data-start=\"2411\" data-end=\"2447\">\n<p data-start=\"2413\" data-end=\"2447\"><strong data-start=\"2413\" data-end=\"2429\">Belco Diallo</strong>, le père d’Aïda</p>\n</li>\n<li data-start=\"2448\" data-end=\"2478\">\n<p data-start=\"2450\" data-end=\"2478\"><strong data-start=\"2450\" data-end=\"2470\">Mariam Kamissoko</strong>, Aïda</p>\n</li>\n<li data-start=\"2479\" data-end=\"2515\">\n<p data-start=\"2481\" data-end=\"2515\"><strong data-start=\"2481\" data-end=\"2497\">Aminata Koné</strong>, Maman Salimata</p>\n</li>\n<li data-start=\"2516\" data-end=\"2550\">\n<p data-start=\"2518\" data-end=\"2550\"><strong data-start=\"2518\" data-end=\"2539\">Abdoulaye Mangane</strong>, Djibril</p>\n</li>\n<li data-start=\"2551\" data-end=\"2590\">\n<p data-start=\"2553\" data-end=\"2590\"><strong data-start=\"2553\" data-end=\"2578\">Kari Bogoba Coulibaly</strong>, le griot</p>\n</li>\n<li data-start=\"2591\" data-end=\"2635\">\n<p data-start=\"2593\" data-end=\"2635\"><strong data-start=\"2593\" data-end=\"2613\">Maimouna Doumbia</strong>, la mère de Djibril</p>\n</li>\n<li data-start=\"2636\" data-end=\"2671\">\n<p data-start=\"2638\" data-end=\"2671\"><strong data-start=\"2638\" data-end=\"2653\">Fily Traoré</strong>, le père d’Aïda</p>\n</li>\n</ul>\n<hr data-start=\"2673\" data-end=\"2676\" />\n<h2 data-start=\"2678\" data-end=\"2715\">Pourquoi regarder ce film malien ?</h2>\n<p data-start=\"2717\" data-end=\"2992\">Le Voile Secret n’est pas seulement un drame romantique, c’est aussi une fresque sociale qui illustre les réalités culturelles et familiales du Mali. Ce film malien d’amour questionne la force des traditions, les choix individuels et la puissance des émotions universelles.</p>\n<p data-start=\"2994\" data-end=\"3218\">Ne manquez pas cette diffusion spéciale le <strong data-start=\"3037\" data-end=\"3051\">14 février</strong> sur la chaîne authentique <strong data-start=\"3078\" data-end=\"3087\">D3 TV</strong>. Le Voile Secret est une œuvre poignante qui vous fera vibrer et réfléchir sur la force de l’amour face aux obstacles de la vie.</p>"
+  }
+];
+
+  function openNews(id) {
+    const item = newsList.find(n => n.id === id);
+    if (!item) return;
+    document.getElementById('newsModalCat').textContent = item.category;
+    document.getElementById('newsModalTitle').textContent = item.title;
+    document.getElementById('newsModalDate').textContent = item.date;
+    const imgEl = document.getElementById('newsModalImg');
+    if (item.img) { imgEl.src = item.img; imgEl.style.display = 'block'; } else { imgEl.style.display = 'none'; }
+    document.getElementById('newsModalContent').innerHTML = item.content;
+    document.getElementById('newsOverlay').classList.add('open');
+    document.getElementById('newsModal').classList.add('open');
+  }
+  function closeNews() {
+    const overlay = document.getElementById('newsOverlay');
+    const modal = document.getElementById('newsModal');
+    if (overlay) overlay.classList.remove('open');
+    if (modal) modal.classList.remove('open');
+  }
+
   function handleBackButton() {
+    if (document.getElementById('newsModal') && document.getElementById('newsModal').classList.contains('open')) { closeNews(); return; }
+
+    if (document.getElementById('videoModal') && document.getElementById('videoModal').classList.contains('open')) { closeVideo(); return; }
+    if (document.getElementById('notifCard') && document.getElementById('notifCard').classList.contains('open')) { hideNotifs(); return; }
     if (document.getElementById('contactCard').classList.contains('open')) { hideContact(); return; }
     if (overlay.classList.contains('open')) { shut(); return; }
     const active = document.querySelector('.tab.active');
