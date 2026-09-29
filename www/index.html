@@ -762,7 +762,17 @@
   const tabs = document.querySelectorAll('.tab');
   const screens = document.querySelectorAll('.screen');
 
+  function stopLive() {
+    const v = document.getElementById('liveVideo');
+    if (v) {
+      try { v.pause(); } catch(e) {}
+    }
+  }
+
   function showScreen(screenId) {
+    if (screenId !== 'screen-direct') {
+      stopLive();
+    }
     screens.forEach(s => s.classList.remove('active'));
     tabs.forEach(x => x.classList.remove('active'));
     const targetScreen = document.getElementById(screenId);
@@ -771,6 +781,13 @@
     if (targetTab) targetTab.classList.add('active');
     if (screenId === 'screen-direct') startLive();
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopLive();
+      closeVideo();
+    }
+  });
 
   tabs.forEach(t => t.addEventListener('click', () => {
     if (t.dataset.target) showScreen(t.dataset.target);
