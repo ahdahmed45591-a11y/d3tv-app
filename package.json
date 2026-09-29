@@ -6,7 +6,8 @@
     "@capacitor/android": "^7.0.0",
     "@capacitor/app": "^7.0.0",
     "@capacitor/core": "^7.0.0",
-    "@capacitor/ios": "^7.0.0"
+    "@capacitor/ios": "^7.0.0",
+    "pdfkit": "^0.20.2"
   },
   "devDependencies": {
     "@capacitor/cli": "^7.0.0"

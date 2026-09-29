@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Spécifications Techniques & Guide des Contenus - D3TV</title>
+<style>
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    background: #fff;
+    line-height: 1.5;
+    font-size: 11pt;
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    border-bottom: 3px solid #f2a93b;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 20pt;
+    color: #0b0b14;
+    font-weight: 800;
+  }
+  .header .badge {
+    background: #0b0b14;
+    color: #f2a93b;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+  .subtitle {
+    color: #666;
+    font-size: 10.5pt;
+    margin-top: 4px;
+  }
+  h2 {
+    color: #0b0b14;
+    font-size: 13pt;
+    border-left: 4px solid #f2a93b;
+    padding-left: 10px;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .card-box {
+    background: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+  }
+  .card-box strong {
+    color: #0b0b14;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 9.5pt;
+  }
+  th {
+    background: #0b0b14;
+    color: #fff;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 700;
+    border: 1px solid #0b0b14;
+  }
+  td {
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) {
+    background: #fcfcfd;
+  }
+  .link {
+    color: #b45309;
+    text-decoration: none;
+    word-break: break-all;
+    font-family: Consolas, monospace;
+    font-size: 8.5pt;
+  }
+  .tag {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 8pt;
+  }
+  .footer {
+    margin-top: 30px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 10px;
+    font-size: 8.5pt;
+    color: #888;
+    text-align: center;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>D3TV • Cahier des Charges & Spécifications</h1>
+      <div class="subtitle">Documentation technique, normes graphiques et inventaire des contenus</div>
+    </div>
+    <div class="badge">APPLICATION OFFICIELLE</div>
+  </div>
+
+  <h2>1. Liens & Serveurs de l'Application</h2>
+  <div class="card-box">
+    <table style="margin:0;">
+      <tr>
+        <th style="width:30%;">Service</th>
+        <th>URL / Lien du Serveur</th>
+      </tr>
+      <tr>
+        <td><strong>Flux Direct (Live Streaming HLS)</strong></td>
+        <td><span class="link">https://live20.bozztv.com/akamaissh101/ssh101/d3tvnet/playlist.m3u8</span></td>
+      </tr>
+      <tr>
+        <td><strong>Site Web Officiel D3TV</strong></td>
+        <td><span class="link">https://d3tv.net</span></td>
+      </tr>
+      <tr>
+        <td><strong>Rubrique Actualités</strong></td>
+        <td><span class="link">https://d3tv.net/actualites/</span></td>
+      </tr>
+      <tr>
+        <td><strong>Mentions Légales & Conditions</strong></td>
+        <td><span class="link">https://d3tv.net/mentions-legales/</span></td>
+      </tr>
+      <tr>
+        <td><strong>Dépôt Source GitHub</strong></td>
+        <td><span class="link">https://github.com/ahdahmed45591-a11y/d3tv-app</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>2. Normes & Spécifications Graphiques (Images)</h2>
+  <div class="card-box">
+    <table style="margin:0;">
+      <tr>
+        <th>Type de Visuel</th>
+        <th>Proportion / Ratio</th>
+        <th>Dimensions Recommandées</th>
+        <th>Format & Poids Optimal</th>
+      </tr>
+      <tr>
+        <td><strong>Films, Séries, Magazines, Concerts, Spectacles, Émissions</strong></td>
+        <td><span class="tag">16:9 (Paysage standard)</span></td>
+        <td><strong>1280 × 720 px</strong> (ou 640 × 360 px)</td>
+        <td>JPEG (.jpg) / WebP — <strong>&lt; 100 Ko</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Vignettes Carrées (En Exclusivité)</strong></td>
+        <td><span class="tag">1:1 (Format carré)</span></td>
+        <td><strong>500 × 500 px</strong></td>
+        <td>JPEG (.jpg) / PNG — <strong>&lt; 80 Ko</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Bannières Publicitaires (ex: BET223)</strong></td>
+        <td><span class="tag">4.5:1 (Bandeau horizontal)</span></td>
+        <td><strong>1080 × 240 px</strong></td>
+        <td>PNG / JPEG — <strong>&lt; 120 Ko</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Grand Carrousel d'En-tête (Hero)</strong></td>
+        <td><span class="tag">16:9 (Plein écran haut)</span></td>
+        <td><strong>1280 × 720 px</strong></td>
+        <td>JPEG (.jpg) — <strong>&lt; 150 Ko</strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>3. Tableau des Contenus de la Page d'Accueil</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:20%;">Groupe / Rubrique</th>
+        <th style="width:24%;">Nom du Visuel (Fichier)</th>
+        <th style="width:26%;">Titre de la Vidéo</th>
+        <th style="width:30%;">Lien YouTube</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>En Exclusivité</strong></td>
+        <td><code>avec_elles.jpg</code></td>
+        <td>AVEC' ELLES</td>
+        <td><a class="link" href="https://youtu.be/QCXuonNJdg8">https://youtu.be/QCXuonNJdg8</a></td>
+      </tr>
+      <tr>
+        <td><strong>En Exclusivité</strong></td>
+        <td><code>an_ka_mali.jpg</code></td>
+        <td>AN KA MALI</td>
+        <td><a class="link" href="https://youtu.be/9fqaLyyBBLM">https://youtu.be/9fqaLyyBBLM</a></td>
+      </tr>
+      <tr>
+        <td><strong>En Exclusivité</strong></td>
+        <td><code>bamako_news.jpg</code></td>
+        <td>Bamako News</td>
+        <td><a class="link" href="https://youtu.be/fj9aSRZ9BS4">https://youtu.be/fj9aSRZ9BS4</a></td>
+      </tr>
+      <tr>
+        <td><strong>Films</strong></td>
+        <td><code>couleurs_mopti.jpg</code></td>
+        <td>Couleurs Mopti</td>
+        <td><a class="link" href="https://youtu.be/7spFoflMeNU">https://youtu.be/7spFoflMeNU</a></td>
+      </tr>
+      <tr>
+        <td><strong>Films</strong></td>
+        <td><code>tiken_dja_fakoly.jpg</code></td>
+        <td>Tiken Dja Fakoly</td>
+        <td><a class="link" href="https://youtu.be/DKiRwBUlySU">https://youtu.be/DKiRwBUlySU</a></td>
+      </tr>
+      <tr>
+        <td><strong>Films</strong></td>
+        <td><code>festival_slam_humour.jpg</code></td>
+        <td>Slam &amp; Humour</td>
+        <td><a class="link" href="https://youtu.be/dJ74-H22N9g">https://youtu.be/dJ74-H22N9g</a></td>
+      </tr>
+      <tr>
+        <td><strong>Série</strong></td>
+        <td><code>fanga_affiche.jpg</code></td>
+        <td>FANGA</td>
+        <td><a class="link" href="https://youtu.be/4r1_c7aNJ00">https://youtu.be/4r1_c7aNJ00</a></td>
+      </tr>
+      <tr>
+        <td><strong>Série</strong></td>
+        <td><code>djandjo_vacances.jpg</code></td>
+        <td>Djandjo</td>
+        <td><a class="link" href="https://youtu.be/13W3ecR0nGQ">https://youtu.be/13W3ecR0nGQ</a></td>
+      </tr>
+      <tr>
+        <td><strong>Série</strong></td>
+        <td><code>la_directrice.jpg</code></td>
+        <td>La Directrice</td>
+        <td><a class="link" href="https://youtu.be/qE2btkWL9Fs">https://youtu.be/qE2btkWL9Fs</a></td>
+      </tr>
+      <tr>
+        <td><strong>Magazines</strong></td>
+        <td><code>livres_fousseyni.jpg</code></td>
+        <td>Panser le Mali</td>
+        <td><a class="link" href="https://youtu.be/lp5Tc6fwTk4">https://youtu.be/lp5Tc6fwTk4</a></td>
+      </tr>
+      <tr>
+        <td><strong>Magazines</strong></td>
+        <td><code>mi_ya_sudu_baba.jpg</code></td>
+        <td>Mi Ya Sudu Baba</td>
+        <td><a class="link" href="https://youtu.be/y4knzrlb-tM">https://youtu.be/y4knzrlb-tM</a></td>
+      </tr>
+      <tr>
+        <td><strong>Magazines</strong></td>
+        <td><code>mdr3_mali_du_rire.png</code></td>
+        <td>MDR 3 - Mali du Rire</td>
+        <td><a class="link" href="https://youtu.be/BN2z9-WEMxE">https://youtu.be/BN2z9-WEMxE</a></td>
+      </tr>
+      <tr>
+        <td><strong>Concerts</strong></td>
+        <td><code>recto_verso.jpg</code></td>
+        <td>Recto Verso</td>
+        <td><a class="link" href="https://youtu.be/LlX9udUOeRk">https://youtu.be/LlX9udUOeRk</a></td>
+      </tr>
+      <tr>
+        <td><strong>Concerts</strong></td>
+        <td><code>speciale_biennale.jpg</code></td>
+        <td>Spéciale Biennale</td>
+        <td><a class="link" href="https://youtu.be/gQHQbPArwBY">https://youtu.be/gQHQbPArwBY</a></td>
+      </tr>
+      <tr>
+        <td><strong>Concerts</strong></td>
+        <td><code>bras_de_fer.jpg</code></td>
+        <td>Tournoi Bras de Fer</td>
+        <td><a class="link" href="https://youtu.be/5RCe8gNCW14">https://youtu.be/5RCe8gNCW14</a></td>
+      </tr>
+      <tr>
+        <td><strong>Spectacles</strong></td>
+        <td><code>mariam_ba.jpg</code></td>
+        <td>Mariam Ba</td>
+        <td><a class="link" href="https://youtu.be/TEeWVU2yE68">https://youtu.be/TEeWVU2yE68</a></td>
+      </tr>
+      <tr>
+        <td><strong>Spectacles</strong></td>
+        <td><code>oumou_sangare.jpg</code></td>
+        <td>Oumou Sangaré</td>
+        <td><a class="link" href="https://youtu.be/GRI0D7PJzP8">https://youtu.be/GRI0D7PJzP8</a></td>
+      </tr>
+      <tr>
+        <td><strong>Spectacles</strong></td>
+        <td><code>abdoulaye_diabate.jpg</code></td>
+        <td>Abdoulaye Diabaté</td>
+        <td><a class="link" href="https://youtu.be/9wamMYw2G9s">https://youtu.be/9wamMYw2G9s</a></td>
+      </tr>
+      <tr>
+        <td><strong>D3 en Bambara</strong></td>
+        <td><code>tiken_dja_bambara.jpg</code></td>
+        <td>Tiken Dja Fakoly</td>
+        <td><a class="link" href="https://youtu.be/9srdXW668EM">https://youtu.be/9srdXW668EM</a></td>
+      </tr>
+      <tr>
+        <td><strong>D3 en Bambara</strong></td>
+        <td><code>regard_yaye.jpg</code></td>
+        <td>Regard Intime de Yaye</td>
+        <td><a class="link" href="https://youtu.be/WGYqPUurwaM">https://youtu.be/WGYqPUurwaM</a></td>
+      </tr>
+      <tr>
+        <td><strong>D3 en Bambara</strong></td>
+        <td><code>yaye_portrait.jpg</code></td>
+        <td>Yaye (Art Plastique)</td>
+        <td><a class="link" href="https://youtu.be/F0XfPsfN9Yw">https://youtu.be/F0XfPsfN9Yw</a></td>
+      </tr>
+      <tr>
+        <td><strong>Émissions</strong></td>
+        <td><code>mi_ya_sudu_baba.jpg</code></td>
+        <td>Mi Ya Sudu Baba</td>
+        <td><a class="link" href="https://youtu.be/V7inaUv2DRI">https://youtu.be/V7inaUv2DRI</a></td>
+      </tr>
+      <tr>
+        <td><strong>Émissions</strong></td>
+        <td><code>mariam_ba.jpg</code></td>
+        <td>Mariam Ba</td>
+        <td><a class="link" href="https://youtu.be/1PUnd1HRA2U">https://youtu.be/1PUnd1HRA2U</a></td>
+      </tr>
+      <tr>
+        <td><strong>Émissions</strong></td>
+        <td><code>oumou_sangare.jpg</code></td>
+        <td>Oumou Sangaré</td>
+        <td><a class="link" href="https://youtu.be/lCCUkeXJMvU">https://youtu.be/lCCUkeXJMvU</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <h2>4. Section Émissions &amp; Inventaire Complet des Liens Vidéo</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:25%;">Nom de l'Émission</th>
+        <th style="width:25%;">Image / Affiche Associée</th>
+        <th style="width:50%;">Tous les Liens YouTube Associés</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>FANGA</strong><br><small>(Série événementielle)</small></td>
+        <td><code>fanga.jpg</code><br><code>fanga_affiche.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/4r1_c7aNJ00">https://youtu.be/4r1_c7aNJ00</a></td>
+      </tr>
+      <tr>
+        <td><strong>DJANDJO</strong><br><small>(Téléréalité / Vacances)</small></td>
+        <td><code>djandjo.jpg</code><br><code>djandjo_vacances.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/13W3ecR0nGQ">https://youtu.be/13W3ecR0nGQ</a></td>
+      </tr>
+      <tr>
+        <td><strong>AVEC' ELLES</strong></td>
+        <td><code>avec_elles.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/QCXuonNJdg8">https://youtu.be/QCXuonNJdg8</a></td>
+      </tr>
+      <tr>
+        <td><strong>MI YA SUDU BABA</strong></td>
+        <td><code>mi_ya_sudu_baba.jpg</code></td>
+        <td>
+          • <a class="link" href="https://youtu.be/V7inaUv2DRI">https://youtu.be/V7inaUv2DRI</a><br>
+          • <a class="link" href="https://youtu.be/y4knzrlb-tM">https://youtu.be/y4knzrlb-tM</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>BAMAKO NEWS</strong></td>
+        <td><code>bamako_news.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/fj9aSRZ9BS4">https://youtu.be/fj9aSRZ9BS4</a></td>
+      </tr>
+      <tr>
+        <td><strong>AN KA MALI</strong></td>
+        <td><code>an_ka_mali.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/9fqaLyyBBLM">https://youtu.be/9fqaLyyBBLM</a></td>
+      </tr>
+      <tr>
+        <td><strong>LA DIRECTRICE</strong></td>
+        <td><code>la_directrice.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/qE2btkWL9Fs">https://youtu.be/qE2btkWL9Fs</a></td>
+      </tr>
+      <tr>
+        <td><strong>MDR (Mali du Rire)</strong></td>
+        <td><code>mdr3_mali_du_rire.png</code></td>
+        <td><a class="link" href="https://youtu.be/BN2z9-WEMxE">https://youtu.be/BN2z9-WEMxE</a></td>
+      </tr>
+      <tr>
+        <td><strong>COULEURS MOPTI</strong></td>
+        <td><code>couleurs_mopti.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/7spFoflMeNU">https://youtu.be/7spFoflMeNU</a></td>
+      </tr>
+      <tr>
+        <td><strong>TIKEN DJA FAKOLY</strong></td>
+        <td><code>tiken_dja_fakoly.jpg</code><br><code>tiken_dja_bambara.jpg</code></td>
+        <td>
+          • <a class="link" href="https://youtu.be/DKiRwBUlySU">https://youtu.be/DKiRwBUlySU</a><br>
+          • <a class="link" href="https://youtu.be/9srdXW668EM">https://youtu.be/9srdXW668EM</a> (Version Bambara)
+        </td>
+      </tr>
+      <tr>
+        <td><strong>MARIAM BA</strong></td>
+        <td><code>mariam_ba.jpg</code></td>
+        <td>
+          • <a class="link" href="https://youtu.be/TEeWVU2yE68">https://youtu.be/TEeWVU2yE68</a><br>
+          • <a class="link" href="https://youtu.be/1PUnd1HRA2U">https://youtu.be/1PUnd1HRA2U</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>OUMOU SANGARÉ</strong></td>
+        <td><code>oumou_sangare.jpg</code></td>
+        <td>
+          • <a class="link" href="https://youtu.be/GRI0D7PJzP8">https://youtu.be/GRI0D7PJzP8</a><br>
+          • <a class="link" href="https://youtu.be/lCCUkeXJMvU">https://youtu.be/lCCUkeXJMvU</a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>ABDOULAYE DIABATÉ</strong></td>
+        <td><code>abdoulaye_diabate.jpg</code></td>
+        <td><a class="link" href="https://youtu.be/9wamMYw2G9s">https://youtu.be/9wamMYw2G9s</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    Document généré pour l'application officielle D3TV • © Groupe Arc-En-Ciel SARL • Tous droits réservés
+  </div>
+
+</body>
+</html>
