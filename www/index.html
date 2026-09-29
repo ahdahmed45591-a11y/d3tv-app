@@ -642,9 +642,11 @@
       </button>
     </div>
     <div class="drawer-list">
-      <button onclick="shut();document.querySelector('.tab[data-target=\'screen-accueil\']').click();">Accueil</button>
-      <button onclick="shut();document.querySelector('.tab[data-target=\'screen-direct\']').click();">En Direct</button>
-      <button onclick="shut();document.querySelector('.tab[data-target=\'screen-series\']').click();">Émissions & Séries</button>
+      <button onclick="shut();showScreen('screen-accueil');">Accueil</button>
+      <button onclick="shut();showScreen('screen-emissions');">Émissions</button>
+      <button onclick="shut();showScreen('screen-actualites');">Actualités</button>
+      <button onclick="shut();showScreen('screen-direct');">En Direct</button>
+      <button onclick="shut();showScreen('screen-compte');">Mon compte</button>
       <button onclick="showContact()">Contactez-nous</button>
       <button onclick="showConditions()">Conditions générales</button>
     </div>
@@ -753,29 +755,60 @@
 </div>
 
 <script>
+  window.addEventListener('error', function(e) {
+    console.warn('D3TV Handled error:', e.message);
+  });
+
   const tabs = document.querySelectorAll('.tab');
   const screens = document.querySelectorAll('.screen');
-  tabs.forEach(t => t.addEventListener('click', () => {
-    tabs.forEach(x => x.classList.remove('active'));
+
+  function showScreen(screenId) {
     screens.forEach(s => s.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById(t.dataset.target).classList.add('active');
-    if (t.dataset.target === 'screen-direct') startLive();
+    tabs.forEach(x => x.classList.remove('active'));
+    const targetScreen = document.getElementById(screenId);
+    if (targetScreen) targetScreen.classList.add('active');
+    const targetTab = document.querySelector('.tab[data-target="' + screenId + '"]');
+    if (targetTab) targetTab.classList.add('active');
+    if (screenId === 'screen-direct') startLive();
+  }
+
+  tabs.forEach(t => t.addEventListener('click', () => {
+    if (t.dataset.target) showScreen(t.dataset.target);
   }));
 
   const LIVE_URL = 'https://live20.bozztv.com/akamaissh101/ssh101/d3tvnet/playlist.m3u8';
+  let hlsInstance = null;
   function startLive() {
     const v = document.getElementById('liveVideo');
-    if (!v || v.dataset.started) return;
-    v.dataset.started = '1';
-    if (v.canPlayType('application/vnd.apple.mpegurl')) {
-      v.src = LIVE_URL;
-    } else if (window.Hls && Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(LIVE_URL);
-      hls.attachMedia(v);
+    if (!v) return;
+    if (v.dataset.started) {
+      v.play().catch(() => {});
+      return;
     }
-    v.play().catch(() => {});
+    v.dataset.started = '1';
+    try {
+      if (v.canPlayType('application/vnd.apple.mpegurl')) {
+        v.src = LIVE_URL;
+        v.play().catch(() => {});
+      } else if (window.Hls && Hls.isSupported()) {
+        if (!hlsInstance) {
+          hlsInstance = new Hls({ enableWorker: true, lowLatencyMode: true });
+          hlsInstance.loadSource(LIVE_URL);
+          hlsInstance.attachMedia(v);
+          hlsInstance.on(Hls.Events.MANIFEST_PARSED, function () {
+            v.play().catch(() => {});
+          });
+          hlsInstance.on(Hls.Events.ERROR, function(evt, data) {
+            if (data.fatal) {
+              if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hlsInstance.startLoad();
+              else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hlsInstance.recoverMediaError();
+            }
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('startLive error:', err);
+    }
   }
 
   const drawer = document.getElementById('drawer');
@@ -852,22 +885,30 @@
   }
   document.getElementById('bellBtn').addEventListener('click', showNotifs);
   function openVideo(id, title) {
-    const overlay = document.getElementById('videoOverlay');
-    const modal = document.getElementById('videoModal');
-    const iframe = document.getElementById('videoIframe');
-    const titleEl = document.getElementById('videoTitle');
-    titleEl.textContent = title || '';
-    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1';
-    overlay.classList.add('open');
-    modal.classList.add('open');
+    try {
+      const overlay = document.getElementById('videoOverlay');
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoIframe');
+      const titleEl = document.getElementById('videoTitle');
+      if (titleEl) titleEl.textContent = title || '';
+      if (iframe) iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1';
+      if (overlay) overlay.classList.add('open');
+      if (modal) modal.classList.add('open');
+    } catch (e) {
+      console.warn('openVideo error:', e);
+    }
   }
   function closeVideo() {
-    const overlay = document.getElementById('videoOverlay');
-    const modal = document.getElementById('videoModal');
-    const iframe = document.getElementById('videoIframe');
-    if (iframe) iframe.src = '';
-    if (overlay) overlay.classList.remove('open');
-    if (modal) modal.classList.remove('open');
+    try {
+      const overlay = document.getElementById('videoOverlay');
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('videoIframe');
+      if (iframe) iframe.src = '';
+      if (overlay) overlay.classList.remove('open');
+      if (modal) modal.classList.remove('open');
+    } catch (e) {
+      console.warn('closeVideo error:', e);
+    }
   }
 
   const newsList = [
