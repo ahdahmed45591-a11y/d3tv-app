@@ -642,13 +642,11 @@
       </button>
     </div>
     <div class="drawer-list">
-      <button>Calendrier des programmes</button>
-      <button>Actualités</button>
-      <button>Présentation de D3TV</button>
-      <button>D3TV Talents</button>
-      <button>Postulez à D3TV</button>
+      <button onclick="shut();document.querySelector('.tab[data-target=\'screen-accueil\']').click();">Accueil</button>
+      <button onclick="shut();document.querySelector('.tab[data-target=\'screen-direct\']').click();">En Direct</button>
+      <button onclick="shut();document.querySelector('.tab[data-target=\'screen-series\']').click();">Émissions & Séries</button>
       <button onclick="showContact()">Contactez-nous</button>
-      <button>Conditions générales</button>
+      <button onclick="showConditions()">Conditions générales</button>
     </div>
   </aside>
 
@@ -683,6 +681,43 @@
       <div style="font-weight:700;font-size:13px;color:var(--accent);">🎉 Téléréalité</div>
       <div style="font-size:12px;margin-top:2px;color:var(--text);">Retrouvez DJANDJO dès maintenant</div>
       <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">Hier</div>
+    </div>
+  </div>
+
+  
+  <div class="contact-overlay" id="conditionsOverlay" onclick="hideConditions()"></div>
+  <div class="news-modal" id="conditionsModal" style="top:30px;bottom:30px;padding:20px 16px;">
+    <div class="news-modal-head" style="margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:8px;">
+      <h3 style="font-size:15px;font-weight:800;color:var(--text);">Conditions Générales & Mentions Légales</h3>
+      <button class="iconbtn" onclick="hideConditions()" aria-label="Fermer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+      </button>
+    </div>
+    <div class="news-modal-body" style="font-size:13px;line-height:1.6;color:#ccc;">
+      <p style="color:#aaa;margin-bottom:14px;">Conformément à la législation malienne et internationale, voici les informations légales et conditions relatives à la chaîne <strong>D3TV.NET</strong>.</p>
+      
+      <h4 style="color:var(--accent);font-size:14px;margin:12px 0 6px;">Éditeur du service</h4>
+      <p><strong>D3TV.NET</strong> est édité par le <strong>Groupe Arc-En-Ciel SARL</strong>, société à responsabilité limitée immatriculée au Registre du Commerce et du Crédit Mobilier du Mali.</p>
+      <ul style="list-style:none;padding:0;margin:8px 0 14px;">
+        <li style="margin-bottom:4px;">• <strong>Dénomination sociale :</strong> Groupe Arc-En-Ciel SARL</li>
+        <li style="margin-bottom:4px;">• <strong>RCCM :</strong> MA.BKO.2014.B.5794</li>
+        <li style="margin-bottom:4px;">• <strong>NINA :</strong> 41409196694040E</li>
+        <li style="margin-bottom:4px;">• <strong>Numéro fiscal :</strong> 086134253X</li>
+        <li style="margin-bottom:4px;">• <strong>Siège social :</strong> Immeuble Sylla, Rue 152, Porte 301, Sogoniko, Bamako – Mali</li>
+        <li style="margin-bottom:4px;">• <strong>Activité principale :</strong> Communication globale, production audiovisuelle et cinématographique</li>
+        <li style="margin-bottom:4px;">• <strong>Capital social :</strong> 1 000 000 FCFA</li>
+        <li style="margin-bottom:4px;">• <strong>Email :</strong> contact@d3tv.net</li>
+        <li style="margin-bottom:4px;">• <strong>Téléphone :</strong> +223 71 79 79 70 / +223 61 79 79 70</li>
+      </ul>
+
+      <h4 style="color:var(--accent);font-size:14px;margin:12px 0 6px;">Responsable de la publication</h4>
+      <p><strong>M. Fousseyni Maïga</strong>, Fondateur et Gérant du Groupe Arc-En-Ciel SARL, Directeur Général de D3TV.NET.</p>
+
+      <h4 style="color:var(--accent);font-size:14px;margin:12px 0 6px;">Propriété intellectuelle</h4>
+      <p>L’ensemble du contenu (textes, images, vidéos, flux audiovisuels, logos, design, code) est protégé par le droit d’auteur et les conventions internationales relatives à la propriété intellectuelle. Toute reproduction, rediffusion ou exploitation non autorisée est strictement interdite.</p>
+
+      <h4 style="color:var(--accent);font-size:14px;margin:12px 0 6px;">Données personnelles & Confidentialité</h4>
+      <p>L'application respecte la vie privée et les données personnelles des utilisateurs. Aucune information confidentielle n'est cédée à des tiers sans votre accord préalable.</p>
     </div>
   </div>
 
@@ -783,6 +818,17 @@
   heroDotsEl.querySelectorAll('span').forEach((d, idx) => d.addEventListener('click', () => { heroIndex = idx; renderHero(heroIndex); }));
   setInterval(() => { heroIndex = (heroIndex + 1) % heroSlides.length; renderHero(heroIndex); }, 5000);
   renderHero(0);
+
+  
+  function showConditions() {
+    shut();
+    document.getElementById('conditionsOverlay').classList.add('open');
+    document.getElementById('conditionsModal').classList.add('open');
+  }
+  function hideConditions() {
+    document.getElementById('conditionsOverlay').classList.remove('open');
+    document.getElementById('conditionsModal').classList.remove('open');
+  }
 
   function showContact() {
     shut();
@@ -905,6 +951,7 @@
 
     if (document.getElementById('videoModal') && document.getElementById('videoModal').classList.contains('open')) { closeVideo(); return; }
     if (document.getElementById('notifCard') && document.getElementById('notifCard').classList.contains('open')) { hideNotifs(); return; }
+    if (document.getElementById('conditionsModal') && document.getElementById('conditionsModal').classList.contains('open')) { hideConditions(); return; }
     if (document.getElementById('contactCard').classList.contains('open')) { hideContact(); return; }
     if (overlay.classList.contains('open')) { shut(); return; }
     const active = document.querySelector('.tab.active');
